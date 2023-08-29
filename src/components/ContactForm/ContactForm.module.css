@@ -1,0 +1,39 @@
+.submit_form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+.name_title,
+.number_title {
+    color: rgb(0 153 153);
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+   
+}
+.shape_input{
+    border: 1px solid rgb(0 153 153);
+    border-radius: 3px;
+}
+.add_contact_btn {
+    margin-top: 20px;
+    width: 100px;
+    height: 25px;
+    color: #fff;
+    border: 1px solid rgb(0 153 153);
+    background-color: rgb(102 204 204);
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    height: 35px;
+}
+
+.submit_form_input {
+    height: 35px;
+    width: 270px;
+
+}
