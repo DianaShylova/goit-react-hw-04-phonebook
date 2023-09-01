@@ -6,15 +6,13 @@ import { nanoid } from 'nanoid';
 import css from "./App.module.css"
 
 export const App = () => {
-  const [contacts, setContacts] = useState([]);
+  const [contacts, setContacts] = useState(JSON.parse(window.localStorage.getItem("contacts")) || []);
   const [filter, setFilter] = useState('');  
  
+ useEffect(() => {
+     window.localStorage.setItem("contacts", JSON.stringify(contacts));
+   }, [contacts]);
 
-  useEffect(() => {
-    const storedContacts = window.localStorage.getItem("contacts");
-    setContacts(JSON.parse(storedContacts));
-  }, []);
-  
 
 
   const handleAddContact = (name, number) => {
@@ -26,9 +24,7 @@ export const App = () => {
   };
   
 
-   useEffect(() => {
-     window.localStorage.setItem("contacts", JSON.stringify(contacts));
-   }, [contacts]);
+  
   
   
   const applyFilter = () => {

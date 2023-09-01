@@ -1,30 +1,40 @@
-import { Component } from 'react';
+import { useState } from 'react';
 import css from "./ContactForm.module.css";
+import { nanoid } from 'nanoid';
 
-export class ContactForm extends Component {
-  state = {
-    name: '',
-    number: '',
+export const ContactForm = ({ onSubmit }) => {
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');    
+
+
+  const handleChange = e => {
+    const { name, value } = e.currentTarget;
+    switch (name) {
+      case 'name':
+        setName(value);
+        break;
+      case 'number':
+        setNumber(value);
+        break;
+      default:
+        return;
+    }    
   };
 
-  handelChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
-
-  handelSubmit = e => {
+  const handleSubmit = e => {
     e.preventDefault();
-    const { name, number } = this.state;
-    this.props.onAddContact(name, number);
-    this.setState({ name: '', number: '' });
+    const id = nanoid();
+    onSubmit({ name, number, id });
+    setName('');
+    setNumber('');
   };
 
-  render() {
-    const { name, number } = this.state;
+     
     return (
-      <form className={css.submit_form} onSubmit={this.handelSubmit}>
+      <form className={css.submit_form} onSubmit={handleSubmit}>
         <h3 className={css.name_title}>Name</h3>
         <input className={css.shape_input}
-          onChange={this.handelChange}
+          onChange={handleChange}
           value={name}
           type="text"
           name="name"
@@ -34,7 +44,7 @@ export class ContactForm extends Component {
         />
         <h3 className={css.number_title}>Number</h3>
         <input className={css.shape_input}
-          onChange={this.handelChange}
+          onChange={handleChange}
           value={number}
           type="tel"
           name="number"
@@ -44,5 +54,5 @@ export class ContactForm extends Component {
         <button type="submit" className={css.add_contact_btn} >Add contact</button>
       </form>
     );
-  }
-}
+  
+};
