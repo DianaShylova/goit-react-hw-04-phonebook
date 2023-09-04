@@ -6,7 +6,7 @@ import { Filter } from './Filter/Filter';
 import css from "./App.module.css"
 
 export const App = () => {
-  const [contacts, setContacts] = useState(JSON.parse(window.localStorage.getItem("contacts")) || []);
+  const [contacts, setContacts] = useState(() => JSON.parse(window.localStorage.getItem("contacts")) || []);
   const [filter, setFilter] = useState('');  
  
  useEffect(() => {
@@ -20,7 +20,7 @@ export const App = () => {
       alert(`${name} is already in contacts`);
       return;
     }
-    setContacts([...contacts, { id, name, number }]); 
+    setContacts(prevState => [...prevState, { id, name, number }]); 
   };
   
 
@@ -38,8 +38,8 @@ export const App = () => {
     setFilter(e.target.value);
   };
 
-  const handleDeleteContact = id => {
-    setContacts(contacts.filter(contact => contact.id !== id));
+  const handleDeleteContact = contactId => {
+    setContacts( prevState => prevState.filter(({id}) => id !== contactId));
   };
 
 return (
